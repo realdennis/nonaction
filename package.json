@@ -1,0 +1,23 @@
+{
+  "name": "nonaction",
+  "version": "0.0.1",
+  "description": "Make state management easily like you do nothing!",
+  "main": "src/index.js",
+  "author": "@realdennis",
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/realdennis/nonaction.git"
+  },
+  "keywords": [
+    "react-hooks",
+    "State management",
+    "State",
+    "Context",
+    "react"
+  ]
+}
