@@ -9,10 +9,10 @@ export const Container = hook => {
 };
 export const Provider = ({ children, inject }) => {
   // Initial 把 inject 上的每個 container 都 initial
-  // Hook週期綁定在 Provider 那層
-  // 再塞進去 Provider 的value裡頭 大家 share context
+  // Hook 週期綁定在 Provider 那層
+  // 再塞進去 Provider 的 value 裡頭 大家 share context
   const Collect = {};
-  inject.forEach(Container => (Collect[Container._id] = Container.hook()));
+  inject.forEach(_container => (Collect[_container._id] = _container.hook()));
   return (
     <RootContext.Provider value={Collect}>{children}</RootContext.Provider>
   );

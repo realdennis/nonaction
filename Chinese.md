@@ -1,18 +1,16 @@
 # nonaction
 
-[中文介紹](https://github.com/realdennis/nonaction/blob/master/Chinese.md)
-
-**Nonaction** State Management [Demo](https://codesandbox.io/s/03q5n1vp0)
+**佛系** 狀態管理 [Demo](https://codesandbox.io/s/03q5n1vp0)
 <br/>
-![Nonaction](https://i.imgur.com/G5iN0D2.png)
+![佛系](https://i.imgur.com/G5iN0D2.png)
 
 ---
 
-~~No Action No Reducer No Middleware It will be managed when time comes~~
+~~不寫 Action 不寫 Reducer 不管 Middleware 時候到了狀態自然管理起來~~
 
-1.  Share state by wrote Hooks and wrapped in container
-2.  **nonaction** will give you ~~a pair of wings~~ `useProvided`
-3.  using hook in Child Components
+1.  把要共享的操作寫成 Hooks
+2.  **nonaction** 會給你~~一對翅膀~~ `useProvided`
+3.  在子組件把 Hook 鉤進來爽用
 
 This repository is inspired by [unstated](https://github.com/jamiebuilds/unstated), but not really similar, what I actually do is merge the Context Provider, Proxy the root context value, return the relative Container's state.
 
@@ -44,7 +42,7 @@ const hook = () => {
   const sub = val => setCount(count - val);
   return { count, add, sub };
 };
-export default Container(hook); //remenber use Container to wrap
+export default Container(hook); //記得要包在Container裡頭
 ```
 
 _App.jsx_
@@ -83,7 +81,7 @@ export default () => {
 
 ## Explanation
 
-Memorize how we use Context API？
+先來回想一下我們平常怎麼使用 Context API？
 
 ```javascript
 import { createContext } from 'react';
@@ -96,7 +94,7 @@ const demo = () => {
     </Context1.Provider>
   );
 };
-//Assume Child1 need Context1
+//然後假設 Child1 要用到Context1
 const Child1 = () => {
   return (
     <>
@@ -106,7 +104,7 @@ const Child1 = () => {
 };
 ```
 
-Context is greate，but **multiple Context** will be...
+Context 非常棒，但是 **多個 Context** 的話會變這樣
 
 ```javascript
 <Context1.Provider>
@@ -114,12 +112,12 @@ Context is greate，but **multiple Context** will be...
     <Context3.Provider>
       <Context4.Provider>
         ...
-        // Very annoying On Provider need One Consumer
-        // Context Hell
+        // 很煩 而且一個Provider對應一個Consumer
+        // Maybe a Context Hell
 
 ```
 
-In fact, You just use one Context share everything like this:
+當然你也可以透過一個 Context 把所有要共享的東西放一起
 
 ```javascript
 <Context1.Provider={{stateA,stateB,stateC}} >
@@ -127,9 +125,9 @@ In fact, You just use one Context share everything like this:
 </Context1.Provider>
 ```
 
-But potential danger is that every Components under Provider could be share/manipulate state, not complying **Principle_of_least_privilege**.
+但是潛在危害是 Provider 底下的子組件可以互相操作、拿到到其他人的 state ，有點違反**最小權限原則**。
 
-If there exsits Library, let you place every context in the root provider, but child components only take their Context value, it will be very convenience.
+如果有一個 Library 可以讓你把所有的狀態放在頂層，各自的子組件只拿出對應的 Context value 拿出來出來，是不是感覺挺棒的呢？
 
 ```javascript
 import { Provider } from 'nonaction';
@@ -169,14 +167,12 @@ export default ()=>{
 	)
 }
 
-/* In future, if nested component also need to use counter's hooks
- * also import useCounter, and manipulate by useProivded.
- */
-
+// 如果以後某個 nested 的 component 也要使用 counter 的狀態
+// 一樣 import useCounter 進來 透過我給你的鉤子去操作
 ```
 
-That will be awesome, right?
-**That's the problem nonaction want to solve.**
+這樣感覺挺不賴的吧？
+**這就是 nonaction 想解決的問題！**
 
 ---
 
