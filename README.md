@@ -1,5 +1,7 @@
 # nonaction
 
+[![Join the chat at https://gitter.im/nonaction-community/community](https://badges.gitter.im/nonaction-community/community.svg)](https://gitter.im/nonaction-community/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [中文介紹](https://github.com/realdennis/nonaction/blob/master/Chinese.md)
 
 **Nonaction** State Management [Demo](https://codesandbox.io/s/03q5n1vp0)
