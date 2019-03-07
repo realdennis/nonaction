@@ -26,13 +26,13 @@ $ npm install nonaction
 
 ## Usage
 
-```
-src
--- App.jsx
--- Store
----- useCounter.js
--- Component
----- Counter.jsx
+```sh
+└── src
+    ├── App.jsx
+    ├── Component
+    │   └── Counter.jsx
+    └── store
+        └── useCounter.js
 ```
 
 _useCounter.js_
@@ -51,24 +51,24 @@ export default Container(hook); //remenber use Container to wrap
 
 _App.jsx_
 
-```javascript
+```jsx
 import { Provider } from 'nonaction';
 import useCounter from './Store/useCounter.js';
 import Counter from './Component/Counter';
-export default ()=>{
-	return (
-		<div id="App">
-			<Provdider inject={[useCounter]}>
-				<Counter/>
-			</Provider>
-		</div>
-	)
-}
+export default () => {
+  return (
+    <div id="App">
+      <Provider inject={[useCounter]}>
+        <Counter />
+      </Provider>
+    </div>
+  );
+};
 ```
 
-_Child.jsx_
+_Counter.jsx_
 
-```javascript
+```jsx
 import { useProvided } from 'nonaction';
 import useCounter from '../store/useCounter';
 export default () => {
@@ -87,7 +87,7 @@ export default () => {
 
 Memorize how we use Context API？
 
-```javascript
+```jsx
 import { createContext } from 'react';
 const Context1 = createContext();
 const demo = () => {
@@ -111,21 +111,23 @@ const Child1 = () => {
 Context is greate，but **multiple Context** will be...
 
 ```javascript
-<Context1.Provider>
-  <Context2.Provider>
-    <Context3.Provider>
-      <Context4.Provider>
-        ...
-        // Very annoying On Provider need One Consumer
-        // Context Hell
-
+    <Context1.Provider>
+      <Context2.Provider>
+        <Context3.Provider>
+          <Context4.Provider>
+            ... // Very annoying One Provider need One Consumer 
+	    ... // Context Hell
+          </Context4.Provider>
+        </Context3.Provider>
+      </Context2.Provider>
+    </Context1.Provider>
 ```
 
 In fact, You just use one Context share everything like this:
 
-```javascript
-<Context1.Provider={{stateA,stateB,stateC}} >
-	<Child />
+```jsx
+<Context1.Provider value={{stateA,stateB,stateC}} >
+  <Child />
 </Context1.Provider>
 ```
 
@@ -133,43 +135,45 @@ But potential danger is that every Components under Provider could be share/mani
 
 If there exsits Library, let you place every context in the root provider, but child components only take their Context value, it will be very convenience.
 
-```javascript
+```jsx
 import { Provider } from 'nonaction';
-import { useCounter ,useText } from './store';
-const App = ()=>{
-	return (
-	<Provider inject={[useCounter,useText,...]}>
-		<ChildA>
-		<ChildB>
-	</Provider>
-	)
-}
+import { ChildA, ChildB } from 'Component';
+import { useCounter, useText } from './store';
+const App = () => {
+  return (
+    <Provider inject={[useCounter, useText /*...otherHooks*/]}>
+      <ChildA />
+      <ChildB />
+    </Provider>
+  );
+};
 
 //In ChildA
-import useCounter from '../store/useCounter'
-export default ()=>{
-	const counter = useProvided(useCounter)
-	return (
-		<>
-			<p>Count : {count}</p>
-			<button onClick={()=>counter.add(1)}>+</button>
-			<button onClick={()=>counter.sub(1)}>-</button>
-		</>
-	)
-}
+import useCounter from '../store/useCounter';
+export default () => {
+  const counter = useProvided(useCounter);
+  return (
+    <>
+      <p>Count : {count}</p>
+      <button onClick={() => counter.add(1)}>+</button>
+      <button onClick={() => counter.sub(1)}>-</button>
+    </>
+  );
+};
+
 
 //In ChildB
 import useText from '../store/useText';
-export default ()=>{
-	const text = useProvided(useText);
-	return (
-		<>
-			<p>text {text.text}</p>
-			<button onClick={text.bang}>bang</button>
-			<button onClick={text.reset}>reset</button>
-		</>
-	)
-}
+export default () => {
+  const text = useProvided(useText);
+  return (
+    <>
+      <p>text {text.text}</p>
+      <button onClick={text.bang}>bang</button>
+      <button onClick={text.reset}>reset</button>
+    </>
+  );
+};
 
 /* In future, if nested component also need to use counter's hooks
  * also import useCounter, and manipulate by useProivded.

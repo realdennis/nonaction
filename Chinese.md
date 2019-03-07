@@ -22,13 +22,13 @@ $ npm install nonaction
 
 ## Usage
 
-```
-src
--- App.jsx
--- Store
----- useCounter.js
--- Component
----- Counter.jsx
+```sh
+└── src
+    ├── App.jsx
+    ├── Component
+    │   └── Counter.jsx
+    └── store
+        └── useCounter.js
 ```
 
 _useCounter.js_
@@ -47,24 +47,24 @@ export default Container(hook); //記得要包在Container裡頭
 
 _App.jsx_
 
-```javascript
+```jsx
 import { Provider } from 'nonaction';
 import useCounter from './Store/useCounter.js';
 import Counter from './Component/Counter';
-export default ()=>{
-	return (
-		<div id="App">
-			<Provdider inject={[useCounter]}>
-				<Counter/>
-			</Provider>
-		</div>
-	)
-}
+export default () => {
+  return (
+    <div id="App">
+      <Provider inject={[useCounter]}>
+        <Counter />
+      </Provider>
+    </div>
+  );
+};
 ```
 
-_Child.jsx_
+_Counter.jsx_
 
-```javascript
+```jsx
 import { useProvided } from 'nonaction';
 import useCounter from '../store/useCounter';
 export default () => {
@@ -83,7 +83,7 @@ export default () => {
 
 先來回想一下我們平常怎麼使用 Context API？
 
-```javascript
+```jsx
 import { createContext } from 'react';
 const Context1 = createContext();
 const demo = () => {
@@ -94,7 +94,7 @@ const demo = () => {
     </Context1.Provider>
   );
 };
-//然後假設 Child1 要用到Context1
+//Assume Child1 need Context1
 const Child1 = () => {
   return (
     <>
@@ -107,21 +107,23 @@ const Child1 = () => {
 Context 非常棒，但是 **多個 Context** 的話會變這樣
 
 ```javascript
-<Context1.Provider>
-  <Context2.Provider>
-    <Context3.Provider>
-      <Context4.Provider>
-        ...
-        // 很煩 而且一個Provider對應一個Consumer
-        // Maybe a Context Hell
-
+    <Context1.Provider>
+      <Context2.Provider>
+        <Context3.Provider>
+          <Context4.Provider>
+            ... // Very annoying One Provider need One Consumer 
+	    ... // Context Hell
+          </Context4.Provider>
+        </Context3.Provider>
+      </Context2.Provider>
+    </Context1.Provider>
 ```
 
 當然你也可以透過一個 Context 把所有要共享的東西放一起
 
-```javascript
-<Context1.Provider={{stateA,stateB,stateC}} >
-	<Child />
+```jsx
+<Context1.Provider value={{stateA,stateB,stateC}} >
+  <Child />
 </Context1.Provider>
 ```
 
@@ -129,43 +131,46 @@ Context 非常棒，但是 **多個 Context** 的話會變這樣
 
 如果有一個 Library 可以讓你把所有的狀態放在頂層，各自的子組件只拿出對應的 Context value 拿出來出來，是不是感覺挺棒的呢？
 
-```javascript
+```jsx
 import { Provider } from 'nonaction';
-import { useCounter ,useText } from './store';
-const App = ()=>{
-	return (
-	<Provider inject={[useCounter,useText,...]}>
-		<ChildA>
-		<ChildB>
-	</Provider>
-	)
-}
+import { ChildA, ChildB } from 'Component';
+import { useCounter, useText } from './store';
+const App = () => {
+  return (
+    <Provider inject={[useCounter, useText /*...otherHooks*/]}>
+      <ChildA />
+      <ChildB />
+    </Provider>
+  );
+};
 
 //In ChildA
-import useCounter from '../store/useCounter'
-export default ()=>{
-	const counter = useProvided(useCounter)
-	return (
-		<>
-			<p>Count : {count}</p>
-			<button onClick={()=>counter.add(1)}>+</button>
-			<button onClick={()=>counter.sub(1)}>-</button>
-		</>
-	)
-}
+import useCounter from '../store/useCounter';
+export default () => {
+  const counter = useProvided(useCounter);
+  return (
+    <>
+      <p>Count : {count}</p>
+      <button onClick={() => counter.add(1)}>+</button>
+      <button onClick={() => counter.sub(1)}>-</button>
+    </>
+  );
+};
+
 
 //In ChildB
 import useText from '../store/useText';
-export default ()=>{
-	const text = useProvided(useText);
-	return (
-		<>
-			<p>text {text.text}</p>
-			<button onClick={text.bang}>bang</button>
-			<button onClick={text.reset}>reset</button>
-		</>
-	)
-}
+export default () => {
+  const text = useProvided(useText);
+  return (
+    <>
+      <p>text {text.text}</p>
+      <button onClick={text.bang}>bang</button>
+      <button onClick={text.reset}>reset</button>
+    </>
+  );
+};
+
 
 // 如果以後某個 nested 的 component 也要使用 counter 的狀態
 // 一樣 import useCounter 進來 透過我給你的鉤子去操作
