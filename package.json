@@ -1,6 +1,6 @@
 {
   "name": "nonaction",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Make state management easily like you do nothing!",
   "main": "src/index.js",
   "author": "@realdennis",

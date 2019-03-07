@@ -13,8 +13,10 @@ export const Provider = ({ children, inject }) => {
   // 再塞進去 Provider 的 value 裡頭 大家 share context
   const Collect = {};
   inject.forEach(_container => (Collect[_container._id] = _container.hook()));
-  return (
-    <RootContext.Provider value={Collect}>{children}</RootContext.Provider>
+  return React.createElement(
+    RootContext.Provider,
+    { value: Collect },
+    children
   );
 };
 export const useProvided = _container => {
