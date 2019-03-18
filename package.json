@@ -1,6 +1,6 @@
 {
   "name": "nonaction",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Make state management easily like you do nothing!",
   "main": "dist/index.js",
   "author": "@realdennis",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/realdennis/nonaction.git"
   },
   "scripts": {
-    "build":"microbundle build src/index.js --jsx React.createElement",
+    "build": "microbundle build src/index.js --jsx React.createElement",
     "prepublish": "rm -r dist/ && npm run build"
   },
   "keywords": [
