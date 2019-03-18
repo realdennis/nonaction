@@ -14,8 +14,7 @@
     "url": "git+https://github.com/realdennis/nonaction.git"
   },
   "scripts": {
-    "build": "microbundle build src/index.js --jsx React.createElement",
-    "prepublish": "rm -r dist/ && npm run build"
+    "build": "microbundle build src/index.js --jsx React.createElement"
   },
   "keywords": [
     "react-hooks",
