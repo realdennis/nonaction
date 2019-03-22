@@ -1,6 +1,8 @@
 # nonaction
 
+[![Build Status](https://travis-ci.org/realdennis/nonaction.svg?branch=master)](https://travis-ci.org/realdennis/nonaction)
 [![Join the chat at https://gitter.im/nonaction-community/community](https://badges.gitter.im/nonaction-community/community.svg)](https://gitter.im/nonaction-community/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 [中文介紹](https://github.com/realdennis/nonaction/blob/master/Chinese.md)
 
