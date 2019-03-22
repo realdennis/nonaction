@@ -1,6 +1,7 @@
 # nonaction
 
 [![Build Status](https://travis-ci.org/realdennis/nonaction.svg?branch=master)](https://travis-ci.org/realdennis/nonaction)
+[![Coverage Status](https://coveralls.io/repos/github/realdennis/nonaction/badge.svg?branch=master)](https://coveralls.io/github/realdennis/nonaction?branch=master)
 [![Join the chat at https://gitter.im/nonaction-community/community](https://badges.gitter.im/nonaction-community/community.svg)](https://gitter.im/nonaction-community/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
