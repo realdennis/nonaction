@@ -1,6 +1,6 @@
 {
   "name": "nonaction",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Make state management easily like you do nothing!",
   "main": "dist/index.js",
   "author": "@realdennis",
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "test": "jest",
-    "test:watch":"jest --watch",
+    "test:watch": "jest --watch",
     "build": "microbundle build src/index.js --jsx React.createElement"
   },
   "keywords": [
