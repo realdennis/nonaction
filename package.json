@@ -14,6 +14,8 @@
     "url": "git+https://github.com/realdennis/nonaction.git"
   },
   "scripts": {
+    "test": "jest",
+    "test:watch":"jest --watch",
     "build": "microbundle build src/index.js --jsx React.createElement"
   },
   "keywords": [
@@ -24,6 +26,14 @@
     "react"
   ],
   "devDependencies": {
-    "microbundle": "^0.11.0"
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.5.0",
+    "jest": "^24.5.0",
+    "microbundle": "^0.11.0",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "react-testing-library": "^6.0.2"
   }
 }
