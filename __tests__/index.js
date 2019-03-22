@@ -60,8 +60,28 @@ test('Two components shared hook', () => {
   expect(getByTestId('panel-count').innerHTML).toEqual('2');
 });
 
-
 test('Cleanup are still working', () => {
   const { getByTestId } = render(<SimpleApp />);
   expect(getByTestId('panel-count').innerHTML).toEqual('0');
+});
+
+const FakeApp = () => {
+  return (
+    <Provider>
+      <div>Render without broken but get warn</div>
+      <p data-testid="panel-render">not broken</p>
+    </Provider>
+  );
+};
+test('Provider inject miss could render', () => {
+  console.warn = () => {};
+  const { getByTestId } = render(<FakeApp />);
+  expect(getByTestId('panel-render').innerHTML).toEqual('not broken');
+});
+
+test('Provider inject miss will show warning message', () => {
+  console.warn = jest.fn();
+  render(<FakeApp />);
+  expect(console.warn).toHaveBeenCalled()
+
 });
