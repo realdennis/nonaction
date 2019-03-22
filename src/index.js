@@ -12,7 +12,14 @@ export const Provider = ({ children, inject }) => {
   // Hook 週期綁定在 Provider 那層
   // 再塞進去 Provider 的 value 裡頭 大家 share context
   const Collect = {};
-  inject.forEach(_container => (Collect[_container._id] = _container.hook()));
+  Array.isArray(inject)
+    ? inject.forEach(
+        _container => (Collect[_container._id] = _container.hook())
+      )
+    : console.warn(
+        '[nonaction] Seems like `inject` in your Provider is not an array?'
+      );
+  // Type check
   return React.createElement(
     RootContext.Provider,
     { value: Collect },
