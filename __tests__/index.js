@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Provider, useProvided } from '../src/index.js';
-import { cleanup, render, fireEvent } from 'react-testing-library';
-afterEach(cleanup);
-
+import { render, fireEvent } from '@testing-library/react';
+import '@testing-library/react/cleanup-after-each';
 const counterHook = (initialState = 0) => {
   const [count, setCount] = useState(initialState);
   const add = val => setCount(count + val);
@@ -82,6 +81,5 @@ test('Provider inject miss could render', () => {
 test('Provider inject miss will show warning message', () => {
   console.warn = jest.fn();
   render(<FakeApp />);
-  expect(console.warn).toHaveBeenCalled()
-
+  expect(console.warn).toHaveBeenCalled();
 });
