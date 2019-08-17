@@ -13,7 +13,7 @@ export const Container: (hook: () => void) => ContainerInstance = hook => {
   };
 };
 interface ProviderProps {
-  children?: Element;
+  children?: React.ReactNode;
   inject: ContainerInstance[];
 }
 export const Provider = ({ children, inject }: ProviderProps) => {
