@@ -2,6 +2,7 @@
   "name": "nonaction",
   "version": "0.0.5",
   "description": "Make state management easily like you do nothing!",
+  "source": "src/index.ts",
   "main": "dist/index.js",
   "author": "@realdennis",
   "license": "MIT",
@@ -16,7 +17,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "microbundle build src/index.js --jsx React.createElement"
+    "build": "microbundle build src/index.ts --jsx React.createElement"
   },
   "keywords": [
     "react-hooks",
@@ -29,6 +30,7 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
     "@testing-library/react": "^8.0.5",
     "babel-jest": "^24.8.0",
     "coveralls": "^3.0.5",

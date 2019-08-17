@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Provider, useProvided } from '../src/index.js';
+import { Container, Provider, useProvided } from '../src/index.ts';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/react/cleanup-after-each';
 const counterHook = (initialState = 0) => {
