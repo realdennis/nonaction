@@ -8,9 +8,11 @@ export const Container = hook => {
   };
 };
 export const Provider = ({ children, inject }) => {
-  // Initial 把 inject 上的每個 container 都 initial
-  // Hook 週期綁定在 Provider 那層
-  // 再塞進去 Provider 的 value 裡頭 大家 share context
+  /*
+  ** 1. Inject each containers at initial
+  ** 2. Attach hooks on the same Provider
+  ** 3. Store in Provider value, share context
+  */
   const Collect = {};
   Array.isArray(inject)
     ? inject.forEach(
@@ -27,8 +29,7 @@ export const Provider = ({ children, inject }) => {
   );
 };
 export const useProvided = _container => {
-  // 取出 Context 上對應的東西
-  // 依照該 Container 的 id 取出對應的 Context value
+  // Get the corresponding context value from sharedProvider using container ID.
   const ContextValue = useContext(RootContext);
   return ContextValue[_container._id];
 };
